@@ -29,4 +29,31 @@ const tweets = [
     author: 'Ada',
     likes: 20
   }
-]
+];
+const structure = ['content', 'likes', 'author'];
+
+const createNewElement = (tag, classToAdd, parent = null) => {
+  const element = document.createElement(tag);
+  element.classList.add(classToAdd);
+
+  if (parent instanceof Element)
+  parent.appendChild(element);
+
+  return element;
+};
+
+const ul = document.getElementById('tweets-list');
+
+const generateTweet = tweet => {
+  const li = createNewElement('li', 'tweet', ul);
+
+  structure.forEach(key => {
+    const p = createNewElement('p', key, li);
+    p.textContent = tweet[key];
+  });
+
+  if (tweet['likes'] > 10)
+  li.classList.add('favorite');
+};
+
+tweets.forEach(tweet => generateTweet(tweet));
